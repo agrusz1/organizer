@@ -1,10 +1,11 @@
 import math
-
+from random import randint
 
 boundaries = [0, 1, "-"]
 state = "STARTING"
 competitors = [0, 0]
 ranked = []
+
 
 def rank_list(unranked: list):
     if len(unranked) is 0:
@@ -19,7 +20,6 @@ def rank_list(unranked: list):
 
 def compete(competitor, ranked_list: list):
     reset_boundaries()
-
     while boundaries_not_crossed():
         challenger_index = get_middle_index_from_boundaries()
         challenge(competitor, challenger_index)
@@ -32,15 +32,20 @@ def challenge(competitor, challenger_index):
     while True:
         val = input("Please enter 1 or 2 of the item that you find better: " +
                     "1. " + str(competitor) + " vs. 2. " + str(ranked[challenger_index]) + "\n")
-        if int(val) is 1:
-            boundaries[1] = challenger_index - 1
-            boundaries[2] = "left"
-            break
-        if int(val) is 2:
-            boundaries[0] = challenger_index + 1
-            boundaries[2] = "right"
-            break
-        print("please enter 1 or 2 only...")
+        try:
+            if int(val) is 1:
+                boundaries[1] = challenger_index - 1
+                boundaries[2] = "left"
+                break
+            elif int(val) is 2:
+                boundaries[0] = challenger_index + 1
+                boundaries[2] = "right"
+                break
+            else:
+                raise ValueError("int out of bounds: " + val)
+        except ValueError as error:
+            print("\n" + str(error) + "\n\nOnly valid inputs are 1 or 2...\n")
+
 
 def insert_item_at_index(item_list: list, index: int, item):
     insert_list = shift_elements_right_at_index(item_list, index)
@@ -63,7 +68,10 @@ def boundaries_not_crossed():
     return boundaries[1] - boundaries[0] >= 0
 
 def get_middle_index_from_boundaries():
-    return math.floor((boundaries[0] + boundaries[1])/2)
+    if boundaries[2] is "-":
+        return randint(0, len(ranked) - 1)
+
+    return math.floor((boundaries[0] + boundaries[1]) / 2)
 
 def reset_boundaries():
     boundaries[0] = 0
@@ -74,7 +82,7 @@ def reset_boundaries():
 def get_insert_index():
     insert_index = 0
     if boundaries[2] is "left":
-        insert_index = boundaries[1]
+        insert_index = boundaries[1] + 1
 
     if boundaries[2] is "right":
         insert_index = boundaries[0]
