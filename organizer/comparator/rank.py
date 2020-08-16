@@ -1,37 +1,33 @@
 import math
 from random import randint
 
-boundaries = [0, 1, "-"]
-state = "STARTING"
-competitors = [0, 0]
-ranked = []
 
+def rank_list(unranked_list: list):
+    ranked_list = []
+    if len(unranked_list) is 0:
+        return print(to_string(unranked_list, ranked_list))
 
-def rank_list(unranked: list):
-    if len(unranked) is 0:
-        return print(to_string(unranked, ranked))
+    ranked_list.append(unranked_list.pop())
 
-    ranked.append(unranked.pop())
-
-    while len(unranked) > 0:
-        competitor = unranked.pop()
-        compete(competitor, ranked)
-    print(to_string(unranked, ranked))
+    while len(unranked_list) > 0:
+        competitor = unranked_list.pop()
+        ranked_list = compete(competitor, ranked_list)
+        print(to_string(unranked_list, ranked_list))
 
 def compete(competitor, ranked_list: list):
-    reset_boundaries()
-    while boundaries_not_crossed():
-        challenger_index = get_middle_index_from_boundaries()
-        challenge(competitor, challenger_index)
+    boundaries = reset_boundaries(len(ranked_list))
+    while boundaries_not_crossed(boundaries):
+        challenger_index = get_middle_index_from_boundaries(boundaries, len(ranked_list))
+        challenge(competitor, challenger_index, boundaries, ranked_list)
 
-    insert_item_at_index(ranked_list, get_insert_index(), competitor)
+    insert_item_at_index(ranked_list, get_insert_index(boundaries, len(ranked_list)), competitor)
 
-    return print(ranked_list)
+    return ranked_list
 
-def challenge(competitor, challenger_index):
+def challenge(competitor, challenger_index, boundaries: list, ranked_list: list):
     while True:
         val = input("Please enter 1 or 2 of the item that you find better: " +
-                    "1. " + str(competitor) + " vs. 2. " + str(ranked[challenger_index]) + "\n")
+                    "1. " + str(competitor) + " vs. 2. " + str(ranked_list[challenger_index]) + "\n")
         try:
             if int(val) is 1:
                 boundaries[1] = challenger_index - 1
@@ -64,23 +60,21 @@ def shift_elements_right_at_index(item_list: list, index: int):
 
     return item_list
 
-def boundaries_not_crossed():
+def boundaries_not_crossed(boundaries: list):
     return boundaries[1] - boundaries[0] >= 0
 
-def get_middle_index_from_boundaries():
+def get_middle_index_from_boundaries(boundaries: list, len_ranked_list: int):
     if boundaries[2] is "-":
-        return randint(0, len(ranked) - 1)
+        return randint(0, len_ranked_list - 1)
 
     return math.floor((boundaries[0] + boundaries[1]) / 2)
 
-def reset_boundaries():
-    boundaries[0] = 0
-    boundaries[1] = len(ranked) - 1
-    boundaries[2] = "-"
+def reset_boundaries(len_ranked_list: int):
+    return [0, len_ranked_list - 1, "-"]
 
-
-def get_insert_index():
+def get_insert_index(boundaries: list, len_ranked_list: int):
     insert_index = 0
+
     if boundaries[2] is "left":
         insert_index = boundaries[1] + 1
 
@@ -89,8 +83,8 @@ def get_insert_index():
 
     if insert_index is -1:
         return 0
-    if insert_index is len(ranked):
-        return len(ranked)
+    if insert_index is len_ranked_list:
+        return len_ranked_list
 
     return insert_index
 
