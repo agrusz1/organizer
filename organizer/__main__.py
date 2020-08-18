@@ -1,4 +1,5 @@
 from comparator import rank as r
+from tests.testhelper import testhelper as th
 
 empty_list = []
 single_list = [1]
@@ -21,3 +22,10 @@ listColors_co = ["BLACK", "ORANGE", "BLUE", "PINK", "PURPLE", "RED", "GREEN", "Y
 
 # r.rank_list(listOne_co)
 r.rank_list(listColors_co)
+
+# print(th.random_int())
+# print(th.random_str())
+# print(th.random_chr())
+# print(th.random_float())
+# print(th.random_list())
+# print(th.random_obj())

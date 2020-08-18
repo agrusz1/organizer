@@ -3,7 +3,7 @@ import string
 from sys import maxsize
 
 
-def random_int(*args):
+def random_int(*args) -> int:
     """Returns a random int ranging [minsize - maxsize] by default, [args[0] - maxsize], or [args[0] - args[1]]."""
     if len(args) is 0:
         return random.randint(((maxsize * -1) + 1), maxsize)
@@ -17,7 +17,7 @@ def random_int(*args):
                          "random_int(minimum: int)[minimum - maxsize], " +
                          "random_int(minimum: int, maximum: int)[minimum - maximum] " +
                          "available.")
-def random_str(*args):
+def random_str(*args) -> str:
     """Returns a concatenated string of random characters with size 10 by default, or size args[0]."""
     if len(args) is 0:
         return ''.join(random.choice(string.ascii_lowercase) for i in range(10))
@@ -28,3 +28,19 @@ def random_str(*args):
                          "random_str(), " +
                          "random_str(char_len), " +
                          "available.")
+
+def random_chr() -> chr:
+    """Returns a random character."""
+    return random_str(1)
+
+def random_float(*args) -> float:
+    """"""
+    return 00.00
+
+def random_list(*args) -> list:
+    """"""
+    return []
+def random_obj(*args) -> object:
+    """"""
+    return None
+
