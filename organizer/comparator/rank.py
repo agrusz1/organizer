@@ -58,6 +58,8 @@ def shift_elements_right_at_index(item_list: list, index: int):
         item_list[position] = item_list[position - 1]
         position -= 1
 
+    item_list[index] = 0
+
     return item_list
 
 def boundaries_not_crossed(boundaries: list):
