@@ -1,5 +1,5 @@
 import math
-from random import randint
+import random
 
 
 def rank_list(unranked_list: list):
@@ -67,7 +67,7 @@ def boundaries_not_crossed(boundaries: list):
 
 def get_middle_index_from_boundaries(boundaries: list, len_ranked_list: int):
     if boundaries[2] is "-":
-        return randint(0, len_ranked_list - 1)
+        return random.randint(0, len_ranked_list - 1)
 
     return math.floor((boundaries[0] + boundaries[1]) / 2)
 
