@@ -24,7 +24,7 @@ def compete(competitor, ranked_list: list):
 
     return ranked_list
 
-def challenge(competitor, challenger_index, boundaries: list, ranked_list: list):
+def challenge(competitor, challenger_index: int, boundaries: list, ranked_list: list):
     while True:
         val = input("Please enter 1 or 2 of the item that you find better: " +
                     "1. " + str(competitor) + " vs. 2. " + str(ranked_list[challenger_index]) + "\n")

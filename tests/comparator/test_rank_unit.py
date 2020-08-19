@@ -7,6 +7,32 @@ from organizer.comparator import rank as subject
 
 
 @pytest.mark.parametrize(
+    "", [
+        [[], ],
+    ]
+)
+def test_rank_list(unranked_list: list):
+    assert True
+
+@pytest.mark.parametrize(
+    "", [
+        [[], ],
+    ]
+)
+def test_compete(competitor, ranked_list: list):
+
+    assert True
+
+@pytest.mark.parametrize(
+    "", [
+        [[], ],
+    ]
+)
+def test_challenge(competitor, challenger_index, boundaries: list, ranked_list: list):
+
+    assert True
+
+@pytest.mark.parametrize(
     "item_list, mocked_shifted_list, index, item, expected", [
         [[1], [0, 1], 0, 2, [2, 1]],
         [["one", "two"], ["one", "two", 0], 2, "three", ["one", "two", "three"]],
@@ -18,6 +44,7 @@ def test_insert_item_at_index(item_list: list, mocked_shifted_list: list, index:
 
     actual = subject.insert_item_at_index(item_list, index, item)
     assert expected == actual
+
 
 @pytest.mark.parametrize(
     "item_list, index, expected", [
@@ -31,6 +58,7 @@ def test_shift_elements_right_at_index(item_list: list, index: int, expected: li
 
     assert expected == actual
 
+
 @pytest.mark.parametrize(
     "boundaries, expected", [
         [[0, 0, th.random_str()], False],
@@ -42,6 +70,7 @@ def test_boundaries_not_crossed(boundaries: list, expected):
     actual = subject.boundaries_not_crossed(boundaries)
 
     return expected == actual
+
 
 @pytest.mark.parametrize(
     "boundaries, len_ranked_list, expected", [
@@ -63,12 +92,14 @@ def test_get_middle_index_from_boundaries(boundaries: list, len_ranked_list: int
 
     assert expected == actual
 
+
 def test_reset_boundaries():
     len_list = th.random_int(0)
     expected = [0, len_list - 1, "-"]
     actual = subject.reset_boundaries(len_list)
 
     assert expected == actual
+
 
 @pytest.mark.parametrize(
     "boundaries, len_ranked_list, expected", [
@@ -82,6 +113,7 @@ def test_get_insert_index(boundaries: list, len_ranked_list: int, expected):
     actual = subject.get_insert_index(boundaries, len_ranked_list)
 
     assert expected == actual
+
 
 @pytest.mark.parametrize(
     "unranked_list, ranked_list", [
