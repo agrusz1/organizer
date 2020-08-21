@@ -1,5 +1,5 @@
 =======================
-PYTHON PROJECT TEMPLATE
+PYLISTORGANIZER
 =======================
 
 Notes:
