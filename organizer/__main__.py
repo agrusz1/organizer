@@ -1,5 +1,5 @@
 from comparator import rank as r
-from tests.testhelper import testhelper as th
+from tests.testhelper import randomgenerator as th
 
 empty_list = []
 single_list = [1]
