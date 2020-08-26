@@ -15,28 +15,44 @@ from organizer.comparator import rank as subject
 # def test_rank_list(unranked_list: list):
 #     assert True
 #
+
 # @pytest.mark.parametrize(
 #     "", [
 #         [[], ],
 #     ]
 # )
 # def test_compete(competitor, ranked_list: list):
+#     mock.when(subject).reset_boundaries(len(ranked_list)).thenReturn([0, len(ranked_list) - 1, "-"])
+#     mock.when(subject).boundaries_not_crossed().thenReturn(True)
 #
 #     assert True
 
+# TODO: Improve challenge tests, very messy and not complete
 @pytest.mark.parametrize(
     "competitor, challenger_index, boundaries, ranked_list, mocked_input", [
         [55, 1, [0, 0, "-"], [1, 2, 3], 2],
+        [55, 1, [0, 0, "-"], [1, 2, 3], 1],
     ]
 )
 def test_challenge(competitor, challenger_index, boundaries: list, ranked_list: list, mocked_input: int):
     set_keyboard_input([mocked_input])
 
-    expected = []
-
     subject.challenge(competitor, challenger_index, boundaries, ranked_list)
 
-    assert boundaries[2] == "right"
+    actual = boundaries
+
+    expected = [0, 0, "-"]
+
+    if mocked_input is 1:
+        expected[1] = challenger_index - 1
+        expected[2] = "left"
+
+    if mocked_input is 2:
+        expected[0] = challenger_index + 1
+        expected[2] = "right"
+
+    assert expected == actual
+
 
 @pytest.mark.parametrize(
     "item_list, mocked_shifted_list, index, item, expected", [
@@ -51,6 +67,7 @@ def test_insert_item_at_index(item_list: list, mocked_shifted_list: list, index:
     actual = subject.insert_item_at_index(item_list, index, item)
     assert expected == actual
 
+
 @pytest.mark.parametrize(
     "item_list, index, expected", [
         [[1], 0, [0, 1]],
@@ -62,6 +79,7 @@ def test_shift_elements_right_at_index(item_list: list, index: int, expected: li
     actual = subject.shift_elements_right_at_index(item_list, index)
 
     assert expected == actual
+
 
 @pytest.mark.parametrize(
     "boundaries, expected", [
